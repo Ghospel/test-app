@@ -34,11 +34,25 @@
                     alert("connected via app");
 
                 });
-                socket.on('messsage', function (message) {
-                    alert(message);
+                socket.on('location', function (data) {
+                    alert(data);
                 });
             });
         });
+        
+        //browser support 
+        socket.on('connect', function () {
+                socket.on('text', function (text) {
+                    alert(text);
+                    alert("connected via browser");
+                    console.log("connected");
+
+                });
+                socket.on('location', function (data) {
+                    alert(data);
+                    console.log("received msg");
+                });
+            });
 
         function broadcastLocation() {
             var lat = localStorage.getItem("latitude");
@@ -46,6 +60,7 @@
             var latlon = lat + "," + lon;
             socket.send(latlon);
         }
+        
     </script>
     <script type="text/javascript">
         /* socket.on('connect', function () {
