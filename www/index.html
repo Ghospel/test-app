@@ -46,7 +46,7 @@
             socket.on('location', function (data) {
                 console.log("received data");
                 $(".app2").html("<div class='update'>" + "Other client coords: " + data + "</div>");
-                $(".app2").append("<img src='https://maps.googleapis.com/maps/api/staticmap?center=" + data + "&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:CHILLEN%7C" + data + "'</img>");
+               // $(".app2").append("<img src='https://maps.googleapis.com/maps/api/staticmap?center=" + data + "&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:CHILLEN%7C" + data + "'</img>");
                 var rawdata = data;
                 var latitude = rawdata.split(" ")[0];
                 var longitude = rawdata.split(" ")[1];
