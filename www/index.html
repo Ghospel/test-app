@@ -35,14 +35,18 @@
                 });
             });
         });
+
+        function broadcastLocation() {
+            iosocket.emit('serverCustomEvent', 'testdata');
+        }
     </script>
     <script type="text/javascript">
-        socket.on('connect', function () {
+        /* socket.on('connect', function () {
             socket.on('text', function (text) {
                 alert(text);
                 alert("browser");
             });
-        });
+        }); */
     </script>
     <script type="text/javascript">
         function getLocation() {
@@ -54,20 +58,21 @@
             function onSucces(position) {
                 var lat = position.coords.latitude;
                 var lon = position.coords.longitude;
-                
+
                 localStorage.setItem("latitude", lat);
                 localStorage.setItem("longitude", lon);
-                
+
                 alert("latitude: " + lat + "longitude: " + lon);
             }
-            
-            function onError(){
+
+            function onError() {
                 alert("error: " + error.message);
             }
 
         }
-        getLocation();
     </script>
+    <button id="getLocation" value="Get My Coords" onClick="getLocation()">Get My Coords</button><br />
+    <button id="broadcastLocation" value="Broadcast coords" onClick="broadcastLocation()">Broadcast location</button>
 
 
 
