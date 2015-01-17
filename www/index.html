@@ -32,13 +32,20 @@
     </nav>
     <div class="row">
         <div class="notifications col-xs-12" style="margin-top: 60px; text-align:center">
-            <button id="getLocation" value="Get My Coords" onClick="getLocation()">Get My Coords</button>
+            <button id="getLocation" value="Get My Coords" onClick="getLocation()">Update mijn locatie</button>
     <br />
-    <button id="broadcastLocation" value="Broadcast coords" onClick="broadcastLocation()">Broadcast location</button>
+    <button id="broadcastLocation" value="Broadcast coords" onClick="broadcastLocation()">Kom Chillen!</button>
         </div>
-        <div class="app2 col-xs-12" style="margin-top: 60px">
+        <div class="app2 col-xs-12">
             
         </div>
+        <div class="app3 col-xs-12" style="text-align:center">
+            
+        </div>
+        <div class="app4 col-xs-12" style="text-align:center">
+            
+        </div>
+        
         
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="http://cdn.socket.io/socket.io-1.0.3.js"></script>
@@ -72,7 +79,7 @@
                 });
                 socket.on('location', function (data) {
                     console.log("received data");
-                    $(".notifications").html('<div class="update"><button id="getLocation" value="Get My Coords" onClick="getLocation()">Get My Coords</button> </div><div class="update"><button id="broadcastLocation" value="Broadcast coords" onClick="broadcastLocation()">Broadcast location</button> </div>');
+                    $(".notifications").html('<div class="update"><button id="getLocation" value="Get My Coords" onClick="getLocation()">Update mijn locatie</button> </div><div class="update"><button id="broadcastLocation" value="Broadcast coords" onClick="broadcastLocation()">Kom Chillen!</button> </div>');
                     $(".notifications").append("<div class='update'>" + "Coordinaten: " + data + "</div>");
                     $(".notifications").append("<div class='update'><h1>Kom Chillen!</h1></div>");
                     // $(".app2").append("<img src='https://maps.googleapis.com/maps/api/staticmap?center=" + data + "&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:CHILLEN%7C" + data + "'</img>");
@@ -93,7 +100,7 @@
                 });
                 socket.on('send', function (data) {
                     console.log("send data");
-                    $(".notifications").append("<div class='update'>" + data + "</div>");
+                    $(".app3").html("<div class='update'>" + data + "</div>");
                 });
             });
 
@@ -147,8 +154,8 @@
 
                     localStorage.setItem("latitude", lat);
                     localStorage.setItem("longitude", lon);
-                    $(".notifications").html('<div class="update"><button id="getLocation" value="Get My Coords" onClick="getLocation()">Get My Coords</button> </div><div class="update"><button id="broadcastLocation" value="Broadcast coords" onClick="broadcastLocation()">Broadcast location</button> </div>');
-                    $(".notifications").append("<div class='update'>Location updated!</div>");
+                    $(".notifications").html('<div class="update"><button id="getLocation" value="Get My Coords" onClick="getLocation()">Update mijn locatie</button> </div><div class="update"><button id="broadcastLocation" value="Broadcast coords" onClick="broadcastLocation()">Kom Chillen!</button> </div>');
+                    $(".app4").html("<div class='update'>Locatie bijgewerkt!</div>");
                     
 
                     //alert("latitude: " + lat + "longitude: " + lon);
