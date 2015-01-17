@@ -32,12 +32,19 @@
                 socket.on('text', function (text) {
                     alert(text);
                     alert("connected via app");
+
+                });
+                socket.on('messsage', function (message) {
+                    alert(message);
                 });
             });
         });
 
         function broadcastLocation() {
-            iosocket.emit('serverCustomEvent', 'testdata');
+            var lat = localStorage.getItem("latitude");
+            var lon = localStorage.getItem("longitude");
+            var latlon = lat + "," + lon;
+            socket.send(latlon);
         }
     </script>
     <script type="text/javascript">
@@ -71,7 +78,8 @@
 
         }
     </script>
-    <button id="getLocation" value="Get My Coords" onClick="getLocation()">Get My Coords</button><br />
+    <button id="getLocation" value="Get My Coords" onClick="getLocation()">Get My Coords</button>
+    <br />
     <button id="broadcastLocation" value="Broadcast coords" onClick="broadcastLocation()">Broadcast location</button>
 
 
