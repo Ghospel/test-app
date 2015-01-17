@@ -47,9 +47,15 @@
                 console.log("received data");
                 $(".app2").html("<div class='update'>" + "Other client coords: " + data + "</div>");
                 $(".app2").append("<img src='https://maps.googleapis.com/maps/api/staticmap?center=" + data + "&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:CHILLEN%7C" + data + "'</img>");
+                localStorage.setItem("otherLocation", data);
+                var rawdata = data;
+                var latitude = rawdata.split(" ")[0];
+                var longitude = rawdata.split(" ")[1];
+                alert("latitude: " + latitude + " longitude: " + longitude);
                 
-                
-                
+
+
+
             });
             socket.on('send', function (data) {
                 console.log("send data");
@@ -60,17 +66,22 @@
         function broadcastLocation() {
             var lat = localStorage.getItem("latitude");
             var lon = localStorage.getItem("longitude");
-            var latlon = lat + "," + lon;
+            var latlon = lat + " " + lon;
             socket.send(latlon);
         }
     </script>
     <script type="text/javascript">
-        /* socket.on('connect', function () {
-            socket.on('text', function (text) {
-                alert(text);
-                alert("browser");
-            });
-        }); */
+        function initialize(latlon) {
+            var otherLocation = localStorage.getItem("otherLocation");
+            alert(otherLocation);
+            var mapCanvas = document.getElementById('map-canvas');
+            var mapOptions = {
+                center: new google.maps.LatLng(52.654523,5.0474287),
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            var map = new google.maps.Map(mapCanvas, mapOptions)
+        }
     </script>
     <script type="text/javascript">
         function getLocation() {
@@ -98,7 +109,7 @@
     <button id="getLocation" value="Get My Coords" onClick="getLocation()">Get My Coords</button>
     <br />
     <button id="broadcastLocation" value="Broadcast coords" onClick="broadcastLocation()">Broadcast location</button>
-
+    <div id="map-canvas"></div>
 
 
 </body>
