@@ -31,12 +31,15 @@
       </div>
     </nav>
     <div class="row">
-        <div class="app2 col-xs-12" style="margin-top: 60px">
-            <div id="map-canvas"></div>
+        <div class="notifications col-xs-12" style="margin-top: 60px; text-align:center">
+            <button id="getLocation" value="Get My Coords" onClick="getLocation()">Get My Coords</button>
+    <br />
+    <button id="broadcastLocation" value="Broadcast coords" onClick="broadcastLocation()">Broadcast location</button>
         </div>
-        <div class="notifications col-xs-6" style="margin-top: 60px">
+        <div class="app2 col-xs-12" style="margin-top: 60px">
             
         </div>
+        
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="http://cdn.socket.io/socket.io-1.0.3.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
@@ -69,7 +72,8 @@
                 });
                 socket.on('location', function (data) {
                     console.log("received data");
-                    $(".notifications").html("<div class='update'>" + "Other client coords: " + data + "</div>");
+                    $(".notifications").html("<div class='update'>" + "Coordinaten: " + data + "</div>");
+                    $(".notifications").append("<div class='update'><h1>Kom Chillen!</h1></div>");
                     // $(".app2").append("<img src='https://maps.googleapis.com/maps/api/staticmap?center=" + data + "&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:CHILLEN%7C" + data + "'</img>");
                     var rawdata = data;
                     var latitude = rawdata.split(" ")[0];
@@ -77,7 +81,8 @@
 
                     localStorage.setItem("otherLatitude", latitude);
                     localStorage.setItem("otherLongitude", longitude);
-
+                    
+                    $(".app2").html("<div id='map-canvas'></div>");
 
                     initialize();
 
@@ -155,9 +160,7 @@
             }
         </script>
     </div>
-    <button id="getLocation" value="Get My Coords" onClick="getLocation()">Get My Coords</button>
-    <br />
-    <button id="broadcastLocation" value="Broadcast coords" onClick="broadcastLocation()">Broadcast location</button>
+    
     
 
 
