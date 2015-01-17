@@ -50,11 +50,13 @@
                 var rawdata = data;
                 var latitude = rawdata.split(" ")[0];
                 var longitude = rawdata.split(" ")[1];
-                
+
                 localStorage.setItem("otherLatitude", latitude);
                 localStorage.setItem("otherLongitude", longitude);
-                
+
+
                 initialize();
+
 
 
 
@@ -74,20 +76,29 @@
     </script>
     <script type="text/javascript">
         function initialize() {
-            alert("maps initializing");
+
             var otherLatitude = localStorage.getItem("otherLatitude");
             var otherLongitude = localStorage.getItem("otherLongitude");
-            
-            var otherLocation = {"lat" : otherLatitude , "long" : otherLongitude};
-            var otherLocationMaps = new.google.maps.LatLng( otherLocation.lat, otherLocation.long );
-            
+
+            var otherLocation = {
+                "lat": otherLatitude,
+                "long": otherLongitude
+            };
+            var otherLocationMaps = new google.maps.LatLng(otherLocation.lat, otherLocation.long);
+
             var mapCanvas = document.getElementById('map-canvas');
             var mapOptions = {
                 center: otherLocationMaps,
-                zoom: 8,
+                zoom: 13,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
             var map = new google.maps.Map(mapCanvas, mapOptions)
+
+            var marker = new google.maps.Marker({
+                position: otherLocationMaps,
+                map: map,
+                title: 'Kom Chillen!'
+            });
         }
     </script>
     <script type="text/javascript">
