@@ -12,8 +12,8 @@
 </head>
 
 <body>
-    <div class="app">
-        
+    <div class="app2">
+
     </div>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="http://cdn.socket.io/socket.io-1.0.3.js"></script>
@@ -23,7 +23,7 @@
     <script type="text/javascript">
         app.initialize();
         var socket = io.connect('http://192.168.2.3:3000');
-       /* document.addEventListener('deviceready', function () {
+        /* document.addEventListener('deviceready', function () {
             socket.on('connect', function () {
                 socket.on('text', function (text) {
                     alert(text);
@@ -36,18 +36,26 @@
             });
         });
         */
-        //browser support 
+         //browser support 
         socket.on('connect', function () {
-                socket.on('text', function (text) {
-                    console.log("connected");
-                    $( ".app" ).append( "<div class='update'>connected with the server</div>" );
+            socket.on('text', function (text) {
+                console.log("connected");
+                $(".app2").append("<div class='update'>connected with the server</div>");
 
-                });
-                socket.on('location', function (data) {
-                    console.log("received data");
-                    $( ".app" ).append( "<div class='update'>" + "Other client coords: " +  data + "</div>" );
-                });
             });
+            socket.on('location', function (data) {
+                console.log("received data");
+                $(".app2").append("<div class='update'>" + "Other client coords: " + data + "</div>");
+                $(".app2").append("<img src='https://maps.googleapis.com/maps/api/staticmap?center=" + data + "&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:CHILLEN%7C" + data + "'</img>");
+                
+                
+                
+            });
+            socket.on('send', function (data) {
+                console.log("send data");
+                $(".app").append("<div class='update'>" + data + "</div>");
+            });
+        });
 
         function broadcastLocation() {
             var lat = localStorage.getItem("latitude");
@@ -55,7 +63,6 @@
             var latlon = lat + "," + lon;
             socket.send(latlon);
         }
-        
     </script>
     <script type="text/javascript">
         /* socket.on('connect', function () {
