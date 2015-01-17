@@ -22,6 +22,7 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="http://cdn.socket.io/socket.io-1.0.3.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script type="text/javascript">
         app.initialize();
         var socket = io.connect('http://192.168.2.3:3000');
@@ -42,6 +43,25 @@
             });
         });
     </script>
+    <script type="text/javascript">
+        function disp(pos) {
+            $('.lat-view').html(pos.coords.latitude);
+            $('.long-view').html(pos.coords.longitude);
+
+        }
+
+        $('#getIt').click(function () {
+            navigator.geolocation.getCurrentPosition(disp);
+        });
+    </script>
+
+    <div id="getIt">Get My Coords</div>
+    <div class="long hds">Longitude</div>
+    <div class="long-view ds"></div>
+    <div class="lat hds">Latitude</div>
+    <div class="lat-view ds"></div>
+    <div id="map-canvas"></div>
+
 
 </body>
 
