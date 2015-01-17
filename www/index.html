@@ -45,23 +45,30 @@
         });
     </script>
     <script type="text/javascript">
-        function disp(pos) {
-            $('.lat-view').html(pos.coords.latitude);
-            $('.long-view').html(pos.coords.longitude);
+        function getLocation() {
+            var options = {
+                enableHighAccuracy: true
+            };
+            watchID = navigator.geolocation.watchPosition(onSucces, onError, options);
+
+            function onSucces(position) {
+                var lat = position.coords.latitude;
+                var lon = position.coords.longitude;
+                
+                localStorage.setItem("latitude", lat);
+                localStorage.setItem("longitude", lon);
+                
+                alert("latitude: " + lat + "longitude: " + lon);
+            }
+            
+            function onError(){
+                alert("error: " + error.message);
+            }
 
         }
-
-        $('#getIt').click(function () {
-            navigator.geolocation.getCurrentPosition(disp);
-        });
+        getLocation();
     </script>
 
-    <div id="getIt">Get My Coords</div>
-    <div class="long hds">Longitude</div>
-    <div class="long-view ds"></div>
-    <div class="lat hds">Latitude</div>
-    <div class="lat-view ds"></div>
-    <div id="map-canvas"></div>
 
 
 </body>
